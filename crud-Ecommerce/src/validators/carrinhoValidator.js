@@ -2,7 +2,7 @@ const yup = require('yup');
 
 const schema = yup.object().shape({
 clienteId: yup.string().length(24, "clienteId inválido").required("clienteId é obrigatório"),
-itens: yup.array().of(
+    itens: yup.array().of(
 yup.object().shape({
 produtoId: yup.string().length(24, "produtoId inválido").required(),
 quantidade: yup.number().min(1, "quantidade mínima é 1").required()
