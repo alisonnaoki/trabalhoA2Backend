@@ -5,8 +5,7 @@ const schema = yup.object().shape({
     descricao: yup.string().required("descricao é obrigatória"),
     preco: yup.number().min(0, "preco deve ser positivo").required("preco é obrigatório"),
     categoriaId: yup.string().length(24, "categoriaId inválido").required("categoriaId é obrigatório"),
-    estoque: yup.number().min(0, "estoque deve ser positivo").required("estoque é obrigatório"),
-    imagemUrl: yup.string().url("url inválida").notRequired()
+    estoque: yup.number().min(0, "estoque deve ser positivo").required("estoque é obrigatório")
 });
 
 async function validarProduto(req, res, next) {

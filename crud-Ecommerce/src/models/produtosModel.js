@@ -6,7 +6,6 @@ const produtosSchema = new mongoose.Schema({
     preco: { type: Number, required: true, min: 0 },
     categoriaId: { type: mongoose.Schema.Types.ObjectId, ref: 'Categoria', required: true },
     estoque: { type: Number, required: true, default: 0 },
-    imagemUrl: { type: String },
     criadoEm: { type: Date, default: Date.now }
 });
 
