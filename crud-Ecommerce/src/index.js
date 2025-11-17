@@ -15,16 +15,16 @@ const url = `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrit
 
 //rotas
 
-app.use('/api', require('./routes/avaliacoesController'));
-app.use('/api', require('./routes/carrinhoController'));
-app.use('/api', require('./routes/categoriasController'));
-app.use('/api', require('./routes/clientesController'));
-app.use('/api', require('./routes/cupomController'));
-app.use('/api', require('./routes/fornecedoresController'));
-app.use('/api', require('./routes/logisticaController'));
-app.use('/api', require('./routes/pagamentoController'));
-app.use('/api', require('./routes/pedidosController'));
-app.use('/api', require('./routes/produtosController'));
+app.use('/api', require('./controllers/avaliacoesControl'));
+app.use('/api', require('./controllers/carrinhoControl'));
+app.use('/api', require('./controllers/categoriasControl'));
+app.use('/api', require('./controllers/clientesControl'));
+app.use('/api', require('./controllers/cupomControl'));
+app.use('/api', require('./controllers/fornecedoresControl'));
+app.use('/api', require('./controllers/logisticaControl'));
+app.use('/api', require('./controllers/pagamentoControl'));
+app.use('/api', require('./controllers/pedidosControl'));
+app.use('/api', require('./controllers/produtosControl'));
 
 mongoose.connect(url)
   .then(() => {
