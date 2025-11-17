@@ -11,7 +11,9 @@ router.get('/fornecedores', async (req, res) => {
 
 router.get('/fornecedores/:id', async (req, res) => {
     const fornecedor = await FornecedorModel.findById(req.params.id).populate('produtosFornecidos');
-        if (!fornecedor) return res.status(404).json({ erro: "Não encontrado" });
+    if (!fornecedor){
+        return res.status(404).json({ erro: "Não encontrado" });
+    } 
     res.json(fornecedor);
 });
 
@@ -22,7 +24,9 @@ router.post('/fornecedores', validarFornecedor, async (req, res) => {
 
 router.put('/fornecedores/:id', async (req, res) => {
     const atualizado = await FornecedorModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!atualizado) return res.status(404).json({ erro: "Não encontrado" });
+    if (!atualizado){
+        return res.status(404).json({ erro: "Não encontrado" });
+    }
     res.json(atualizado);
 });
 

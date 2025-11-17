@@ -5,15 +5,15 @@ const ProdutoModel = require('../models/produtosModel');
 const { validarProduto } = require('../validators/produtosValidator');
 
 router.get('/produtos', async (req, res) => {
-const produtos = await ProdutoModel.find()
-    .populate('categoriaId');
+    const produtos = await ProdutoModel.find().populate('categoriaId');
     res.json(produtos);
 });
 
 router.get('/produtos/:id', async (req, res) => {
-const produto = await ProdutoModel.findById(req.params.id)
-    .populate('categoriaId');
-if (!produto) return res.status(404).json({ erro: "Não encontrado" });
+    const produto = await ProdutoModel.findById(req.params.id).populate('categoriaId');
+    if (!produto) {
+        return res.status(404).json({ erro: "Não encontrado" });7
+    }
     res.json(produto);
 });
 
@@ -24,7 +24,9 @@ const novoProduto = await ProdutoModel.create(req.body);
 
 router.put('/produtos/:id', async (req, res) => {
 const atualizado = await ProdutoModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-if (!atualizado) return res.status(404).json({ erro: "Não encontrado" });
+if (!atualizado) {
+        return res.status(404).json({ erro: "Não encontrado" });
+    }   
     res.json(atualizado);
 });
 

@@ -13,6 +13,19 @@ const DB_NAME = process.env.DB_NAME
 
 const url = `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`
 
+//rotas
+
+app.use('/api', require('./routes/avaliacoesController'));
+app.use('/api', require('./routes/carrinhoController'));
+app.use('/api', require('./routes/categoriasController'));
+app.use('/api', require('./routes/clientesController'));
+app.use('/api', require('./routes/cupomController'));
+app.use('/api', require('./routes/fornecedoresController'));
+app.use('/api', require('./routes/logisticaController'));
+app.use('/api', require('./routes/pagamentoController'));
+app.use('/api', require('./routes/pedidosController'));
+app.use('/api', require('./routes/produtosController'));
+
 mongoose.connect(url)
   .then(() => {
     console.log("Conectado ao banco MongoDB!!!!")
