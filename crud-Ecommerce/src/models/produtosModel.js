@@ -9,4 +9,6 @@ const produtosSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Produto', produtosSchema);
+const ProdutoModel = mongoose.model('Produto', schema)
+
+module.exports = ProdutoModel

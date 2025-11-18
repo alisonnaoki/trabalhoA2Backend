@@ -1,38 +1,34 @@
 const express = require('express');
 const router = express.Router();
 
-const CarrinhoModel = require('../models/carrinhoModel');
-const { validarCarrinho } = require('../validators/carrinhoValidator');
+const CategoriaModel = require('../models/categoriasModel');
+const { validarCategoria } = require('../validators/categoriasValidator');
 
-router.get('/carrinho', async (req, res) => {
-const carrinhos = await CarrinhoModel.find()
-.populate(['clienteId', 'itens.produtoId']);
-res.json(carrinhos);
+router.get('/categorias', async (req, res) => {
+    const categorias = await CategoriaModel.find();
+    res.json(categorias);
 });
 
-router.get('/carrinho/:id', async (req, res) => {
-const carrinho = await CarrinhoModel.findById(req.params.id)
-.populate(['clienteId', 'itens.produtoId']);
-if (!carrinho) return res.status(404).json({ erro: "Não encontrado" });
-res.json(carrinho);
+router.get('/categorias/:id', async (req, res) => {
+    const categoria = await CategoriaModel.findById(req.params.id);
+    if (!categoria) return res.status(404).json({ erro: "Não encontrado" });
+    res.json(categoria);
 });
 
-router.post('/carrinho', validarCarrinho, async (req, res) => {
-const novoCarrinho = await CarrinhoModel.create(req.body);
-res.status(201).json(novoCarrinho);
+router.post('/categorias', validarCategoria, async (req, res) => {
+    const novaCategoria = await CategoriaModel.create(req.body);
+    res.status(201).json(novaCategoria);
 });
 
-router.put('/carrinho/:id', async (req, res) => {
-const atualizado = await CarrinhoModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-if (!atualizado) return res.status(404).json({ erro: "Não encontrado" });
-res.json(atualizado);
+router.put('/categorias/:id', async (req, res) => {
+    const atualizado = await CategoriaModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!atualizado) return res.status(404).json({ erro: "Não encontrado" });
+    res.json(atualizado);
 });
 
-router.delete('/carrinho/:id', async (req, res) => {
-await CarrinhoModel.findByIdAndDelete(req.params.id);
-res.status(204).send();
+router.delete('/categorias/:id', async (req, res) => {
+    await CategoriaModel.findByIdAndDelete(req.params.id);
+    res.status(204).send();
 });
 
 module.exports = router;
-
-//yuri

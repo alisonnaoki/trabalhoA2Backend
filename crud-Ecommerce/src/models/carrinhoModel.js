@@ -9,4 +9,6 @@ const carrinhoSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Carrinho', carrinhoSchema);
+const CarrinhoModel = mongoose.model('Carrinho', schema)
+
+module.exports = CarrinhoModel

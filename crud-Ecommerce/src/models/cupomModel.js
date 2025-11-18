@@ -7,6 +7,6 @@ const cupomSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Cupom', cupomSchema);
+const CupomModel = mongoose.model('Cupom',schema)
 
-//yuri
+module.exports = CupomModel
