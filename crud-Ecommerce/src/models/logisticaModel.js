@@ -13,3 +13,5 @@ const logisticaSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Logistica', logisticaSchema);
+
+//yuri

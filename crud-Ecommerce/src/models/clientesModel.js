@@ -14,3 +14,5 @@ const clientesSchema = new mongoose.Schema({
 const ClienteModel = mongoose.model('Clientes', schema)
 
 module.exports = ClienteModel
+
+//yuri
