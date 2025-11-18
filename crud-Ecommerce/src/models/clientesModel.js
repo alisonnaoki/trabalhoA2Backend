@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { schema } = require('./logisticaModel');
 
 const clientesSchema = new mongoose.Schema({
     nome: { type: String, required: true },
@@ -10,4 +11,6 @@ const clientesSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Cliente', clientesSchema);
+const ClienteModel = mongoose.model('Clientes', schema)
+
+module.exports = ClienteModel
