@@ -1,107 +1,154 @@
 # Ecommerce Backend API
 
-Este projeto é um backend completo para um sistema de ecommerce desenvolvido em Node.js, utilizando Express.js para as rotas, MongoDB Atlas para o banco de dados, Mongoose para modelagem, e Yup para validações. O sistema implementa 10 operações CRUD distintas para entidades relacionadas, atendendo aos requisitos do Trabalho Prático A2.
-
 ## Tecnologias Utilizadas
-- **Node.js**: Ambiente de execução JavaScript.
-- **Express.js**: Framework para criação de APIs REST.
-- **MongoDB Atlas**: Banco de dados NoSQL na nuvem.
-- **Mongoose**: ODM para modelagem de dados e relacionamentos.
-- **Yup**: Biblioteca para validações de entrada.
-- **JWT**: Para autenticação (se implementado).
-- **Outros**: bcryptjs para hash de senhas, dotenv para variáveis de ambiente.
+- **Node.js**: Ambiente de execução JavaScript para o servidor.
+- **Express.js**: Framework para criação de APIs RESTful.
+- **MongoDB Atlas**: Banco de dados NoSQL na nuvem para armazenamento de dados.
+- **Mongoose**: ODM para modelagem de dados e gerenciamento de relacionamentos.
+- **Yup**: Biblioteca para validações de entrada de dados.
+- **JWT (jsonwebtoken)**: Para autenticação e autorização de usuários.
+- **bcryptjs**: Para hash de senhas.
+- **dotenv**: Para gerenciamento de variáveis de ambiente.
+- **cors**: Para permitir requisições cross-origin.
 
-## Descrição do Projeto
-A API gerencia um ecommerce com 10 entidades principais: Avaliações, Carrinho, Categorias, Clientes, Cupons, Fornecedores, Logística, Pagamentos, Pedidos e Produtos. Cada entidade possui operações CRUD completas (Create, Read, Update, Delete), com validações, relacionamentos entre collections e documentação via Postman. O projeto inclui autenticação básica, tratamento de erros e estrutura modular para escalabilidade.
+## Explicação e Descrição do Sistema
+Este projeto é um backend completo para um sistema de ecommerce, desenvolvido em Node.js com Express. Ele implementa 10 operações CRUD (Create, Read, Update, Delete) distintas para entidades relacionadas, atendendo aos requisitos do Trabalho Prático A2. O sistema gerencia usuários, produtos, pedidos, pagamentos e outras funcionalidades essenciais de um ecommerce, com validações rigorosas, autenticação JWT e integração com MongoDB Atlas. A arquitetura é modular, com separação de models, controllers, validators e rotas, facilitando manutenção e escalabilidade.
 
-## Lista de Endpoints
-Abaixo, a lista completa de endpoints para as 10 entidades. Todos os endpoints retornam JSON e usam os códigos HTTP padrão.
+## Funcionalidades Implementadas
+- **CRUD Completo para 10 Entidades**: Avaliações, Carrinho, Categorias, Clientes, Cupons, Fornecedores, Logística, Pagamentos, Pedidos e Produtos.
+- **Validações Yup**: Aplicadas em todas as requisições POST e PUT para garantir integridade de dados (ex.: formato de email, CPF, valores positivos).
+- **Relacionamentos entre Collections**: Usando refs Mongoose para conectar entidades (ex.: Pedido -> Cliente, Produto -> Categoria).
+- **Autenticação JWT**: Login e registro de usuários com proteção de rotas.
+- **Tratamento de Erros**: Respostas padronizadas com códigos HTTP (200, 400, 404, 500).
+- **Documentação Postman**: Collection exportada com exemplos de requisições.
+- **Diagrama de Modelagem**: Visualização das collections e relacionamentos.
+
+## Lista de Endpoints com Exemplos de Requisição/Resposta
+Abaixo, lista resumida dos endpoints. Todos retornam JSON e usam códigos HTTP padrão. Exemplos de bodies para POST/PUT são fictícios.
 
 ### 1. Avaliações (`/api/avaliacoes`)
-- **GET /api/avaliacoes**: Lista todas as avaliações.
-- **GET /api/avaliacoes/:id**: Busca avaliação por ID.
-- **POST /api/avaliacoes**: Cria nova avaliação (com validação Yup).
-- **PUT /api/avaliacoes/:id**: Atualiza avaliação por ID.
-- **DELETE /api/avaliacoes/:id**: Deleta avaliação por ID.
+- **GET /api/avaliacoes**: Lista avaliações. Resposta: `[{ "produtoId": "id", "nota": 5 }]`.
+- **GET /api/avaliacoes/:id**: Busca por ID. Resposta: `{ "produtoId": "id", "nota": 5 }`.
+- **POST /api/avaliacoes**: Cria avaliação. Body: `{ "produtoId": "id", "clienteId": "id", "nota": 5 }`. Resposta: `{ "_id": "id", "nota": 5 }`.
+- **PUT /api/avaliacoes/:id**: Atualiza. Body: `{ "nota": 4 }`. Resposta: `{ "nota": 4 }`.
+- **DELETE /api/avaliacoes/:id**: Deleta. Resposta: Status 204.
 
 ### 2. Carrinho (`/api/carrinho`)
-- **GET /api/carrinho**: Lista todos os carrinhos.
-- **GET /api/carrinho/:id**: Busca carrinho por ID.
-- **POST /api/carrinho**: Cria novo carrinho (com validação Yup).
-- **PUT /api/carrinho/:id**: Atualiza carrinho por ID.
-- **DELETE /api/carrinho/:id**: Deleta carrinho por ID.
+- **GET /api/carrinho**: Lista carrinhos. Resposta: `[{ "clienteId": "id", "itens": [] }]`.
+- **GET /api/carrinho/:id**: Busca por ID. Resposta: `{ "clienteId": "id", "itens": [] }`.
+- **POST /api/carrinho**: Cria carrinho. Body: `{ "clienteId": "id", "itens": [{ "produtoId": "id", "quantidade": 1 }] }`. Resposta: `{ "_id": "id" }`.
+- **PUT /api/carrinho/:id**: Atualiza. Body: `{ "itens": [] }`. Resposta: `{ "itens": [] }`.
+- **DELETE /api/carrinho/:id**: Deleta. Resposta: Status 204.
 
 ### 3. Categorias (`/api/categorias`)
-- **GET /api/categorias**: Lista todas as categorias.
-- **GET /api/categorias/:id**: Busca categoria por ID.
-- **POST /api/categorias**: Cria nova categoria (com validação Yup).
-- **PUT /api/categorias/:id**: Atualiza categoria por ID.
-- **DELETE /api/categorias/:id**: Deleta categoria por ID.
+- **GET /api/categorias**: Lista categorias. Resposta: `[{ "nome": "Eletrônicos" }]`.
+- **GET /api/categorias/:id**: Busca por ID. Resposta: `{ "nome": "Eletrônicos" }`.
+- **POST /api/categorias**: Cria categoria. Body: `{ "nome": "Eletrônicos" }`. Resposta: `{ "_id": "id", "nome": "Eletrônicos" }`.
+- **PUT /api/categorias/:id**: Atualiza. Body: `{ "nome": "Novo Nome" }`. Resposta: `{ "nome": "Novo Nome" }`.
+- **DELETE /api/categorias/:id**: Deleta. Resposta: Status 204.
 
 ### 4. Clientes (`/api/clientes`)
-- **GET /api/clientes**: Lista todos os clientes.
-- **GET /api/clientes/:id**: Busca cliente por ID.
-- **POST /api/clientes**: Cria novo cliente (com validação Yup).
-- **PUT /api/clientes/:id**: Atualiza cliente por ID.
-- **DELETE /api/clientes/:id**: Deleta cliente por ID.
+- **GET /api/clientes**: Lista clientes. Resposta: `[{ "nome": "João", "email": "joao@email.com" }]`.
+- **GET /api/clientes/:id**: Busca por ID. Resposta: `{ "nome": "João", "email": "joao@email.com" }`.
+- **POST /api/clientes**: Cria cliente. Body: `{ "nome": "João", "email": "joao@email.com", "senha": "123", "cpf": "12345678901" }`. Resposta: `{ "_id": "id" }`.
+- **PUT /api/clientes/:id**: Atualiza. Body: `{ "telefone": "11999999999" }`. Resposta: `{ "telefone": "11999999999" }`.
+- **DELETE /api/clientes/:id**: Deleta. Resposta: Status 204.
 
 ### 5. Cupons (`/api/cupons`)
-- **GET /api/cupons**: Lista todos os cupons.
-- **GET /api/cupons/:id**: Busca cupom por ID.
-- **POST /api/cupons**: Cria novo cupom (com validação Yup).
-- **PUT /api/cupons/:id**: Atualiza cupom por ID.
-- **DELETE /api/cupons/:id**: Deleta cupom por ID.
+- **GET /api/cupons**: Lista cupons. Resposta: `[{ "codigo": "DESCONTO10", "desconto": 10 }]`.
+- **GET /api/cupons/:id**: Busca por ID. Resposta: `{ "codigo": "DESCONTO10", "desconto": 10 }`.
+- **POST /api/cupons**: Cria cupom. Body: `{ "codigo": "DESCONTO10", "desconto": 10, "validade": "2023-12-31" }`. Resposta: `{ "_id": "id" }`.
+- **PUT /api/cupons/:id**: Atualiza. Body: `{ "desconto": 15 }`. Resposta: `{ "desconto": 15 }`.
+- **DELETE /api/cupons/:id**: Deleta. Resposta: Status 204.
 
 ### 6. Fornecedores (`/api/fornecedores`)
-- **GET /api/fornecedores**: Lista todos os fornecedores.
-- **GET /api/fornecedores/:id**: Busca fornecedor por ID.
-- **POST /api/fornecedores**: Cria novo fornecedor (com validação Yup).
-- **PUT /api/fornecedores/:id**: Atualiza fornecedor por ID.
-- **DELETE /api/fornecedores/:id**: Deleta fornecedor por ID.
+- **GET /api/fornecedores**: Lista fornecedores. Resposta: `[{ "nome": "Fornecedor XYZ", "cnpj": "12345678000123" }]`.
+- **GET /api/fornecedores/:id**: Busca por ID. Resposta: `{ "nome": "Fornecedor XYZ", "cnpj": "12345678000123" }`.
+- **POST /api/fornecedores**: Cria fornecedor. Body: `{ "nome": "Fornecedor XYZ", "cnpj": "12345678000123" }`. Resposta: `{ "_id": "id" }`.
+- **PUT /api/fornecedores/:id**: Atualiza. Body: `{ "contato": "novo@email.com" }`. Resposta: `{ "contato": "novo@email.com" }`.
+- **DELETE /api/fornecedores/:id**: Deleta. Resposta: Status 204.
 
 ### 7. Logística (`/api/logistica`)
-- **GET /api/logistica**: Lista todas as entradas de logística.
-- **GET /api/logistica/:id**: Busca logística por ID.
-- **POST /api/logistica**: Cria nova entrada de logística (com validação Yup).
-- **PUT /api/logistica/:id**: Atualiza logística por ID.
-- **DELETE /api/logistica/:id**: Deleta logística por ID.
+- **GET /api/logistica**: Lista logística. Resposta: `[{ "pedidoId": "id", "status": "enviado" }]`.
+- **GET /api/logistica/:id**: Busca por ID. Resposta: `{ "pedidoId": "id", "status": "enviado" }`.
+- **POST /api/logistica**: Cria logística. Body: `{ "pedidoId": "id", "transportadora": "Correios" }`. Resposta: `{ "_id": "id" }`.
+- **PUT /api/logistica/:id**: Atualiza. Body: `{ "status": "entregue" }`. Resposta: `{ "status": "entregue" }`.
+- **DELETE /api/logistica/:id**: Deleta. Resposta: Status 204.
 
 ### 8. Pagamentos (`/api/pagamentos`)
-- **GET /api/pagamentos**: Lista todos os pagamentos.
-- **GET /api/pagamentos/:id**: Busca pagamento por ID.
-- **POST /api/pagamentos**: Cria novo pagamento (com validação Yup).
-- **PUT /api/pagamentos/:id**: Atualiza pagamento por ID.
-- **DELETE /api/pagamentos/:id**: Deleta pagamento por ID.
+- **GET /api/pagamentos**: Lista pagamentos. Resposta: `[{ "pedidoId": "id", "valor": 100.00 }]`.
+- **GET /api/pagamentos/:id**: Busca por ID. Resposta: `{ "pedidoId": "id", "valor": 100.00 }`.
+- **POST /api/pagamentos**: Cria pagamento. Body: `{ "pedidoId": "id", "valor": 100.00 }`. Resposta: `{ "_id": "id" }`.
+- **PUT /api/pagamentos/:id**: Atualiza. Body: `{ "status": "concluido" }`. Resposta: `{ "status": "concluido" }`.
+- **DELETE /api/pagamentos/:id**: Deleta. Resposta: Status 204.
 
 ### 9. Pedidos (`/api/pedidos`)
-- **GET /api/pedidos**: Lista todos os pedidos.
-- **GET /api/pedidos/:id**: Busca pedido por ID.
-- **POST /api/pedidos**: Cria novo pedido (com validação Yup).
-- **PUT /api/pedidos/:id**: Atualiza pedido por ID.
-- **DELETE /api/pedidos/:id**: Deleta pedido por ID.
+- **GET /api/pedidos**: Lista pedidos. Resposta: `[{ "clienteId": "id", "total": 100.00 }]`.
+- **GET /api/pedidos/:id**: Busca por ID. Resposta: `{ "clienteId": "id", "total": 100.00 }`.
+- **POST /api/pedidos**: Cria pedido. Body: `{ "clienteId": "id", "itens": [], "total": 100.00 }`. Resposta: `{ "_id": "id" }`.
+- **PUT /api/pedidos/:id**: Atualiza. Body: `{ "status": "pago" }`. Resposta: `{ "status": "pago" }`.
+- **DELETE /api/pedidos/:id**: Deleta. Resposta: Status 204.
 
 ### 10. Produtos (`/api/produtos`)
-- **GET /api/produtos**: Lista todos os produtos.
-- **GET /api/produtos/:id**: Busca produto por ID.
-- **POST /api/produtos**: Cria novo produto (com validação Yup).
-- **PUT /api/produtos/:id**: Atualiza produto por ID.
-- **DELETE /api/produtos/:id**: Deleta produto por ID.
+- **GET /api/produtos**: Lista produtos. Resposta: `[{ "nome": "Produto A", "preco": 50.00 }]`.
+- **GET /api/produtos/:id**: Busca por ID. Resposta: `{ "nome": "Produto A", "preco": 50.00 }`.
+- **POST /api/produtos**: Cria produto. Body: `{ "nome": "Produto A", "preco": 50.00, "categoriaId": "id" }`. Resposta: `{ "_id": "id" }`.
+- **PUT /api/produtos/:id**: Atualiza. Body: `{ "preco": 60.00 }`. Resposta: `{ "preco": 60.00 }`.
+- **DELETE /api/produtos/:id**: Deleta. Resposta: Status 204.
 
 ## Diagrama de Modelagem
-O diagrama de modelagem das 10 collections e seus relacionamentos está disponível em `docs/diagrama.png`. Ele mostra as entidades, campos principais e referências (ex.: Produto -> Categoria, Pedido -> Cliente).
+![Diagrama de Modelagem](docs/diagrama.png)
 
-## Instalação e Execução
-1. **Clone o repositório**: `git clone https://github.com/seu-usuario/ecommerce-backend.git`
-2. **Instale as dependências**: `npm install`
-3. **Configure o ambiente**: Crie um arquivo `.env` com as variáveis (ex.: `MONGO_URI=mongodb+srv://...`, `JWT_SECRET=...`)
-4. **Execute o servidor**: `npm start` (porta padrão: 5000)
-5. **Teste a API**: Use Postman com a collection exportada em `docs/ecommerce-api.postman_collection.json`
+## Breve Descrição das Collections e Relacionamentos
+- **Avaliações**: Relaciona Produto e Cliente (nota e comentário).
+- **Carrinho**: Relaciona Cliente e Produtos (itens com quantidade).
+- **Categorias**: Independente, mas referenciada por Produtos.
+- **Clientes**: Independente, mas referenciado por Pedidos, Carrinho, Avaliações e Cupons.
+- **Cupons**: Relaciona Cliente (opcional).
+- **Fornecedores**: Relaciona Produtos (produtos fornecidos).
+- **Logística**: Relaciona Pedido (rastreamento e status).
+- **Pagamentos**: Relaciona Pedido (método e valor).
+- **Pedidos**: Relaciona Cliente e Produtos (itens, total, status).
+- **Produtos**: Relaciona Categoria, Fornecedor e Avaliações.
+Relacionamentos usam refs Mongoose para queries eficientes com populate.
 
-## Membros do Grupo e Contribuições
-- **João Silva (Matrícula: 12345)**: Responsável pelos models de Avaliações, Carrinho e Categorias; contribuiu com validações Yup e diagrama.
-- **Maria Oliveira (Matrícula: 67890)**: Responsável pelos models de Clientes, Cupons e Fornecedores; implementou controllers e rotas.
-- **Carlos Santos (Matrícula: 54321)**: Responsável pelos models de Logística, Pagamentos e Pedidos; configurou MongoDB Atlas e autenticação.
-- **Ana Costa (Matrícula: 09876)**: Responsável pelo model de Produtos; criou README, collection Postman e testes finais.
-- **Pedro Lima (Matrícula: 13579)**: Coordenação geral, integração de rotas no server.js e revisão de código.
+## Instalação, Configuração e Execução
+1. **Clone o repositório**: `git clone https://github.com/seu-usuario/ecommerce-backend.git`.
+2. **Instale dependências**: `npm install`.
+3. **Configure ambiente**: Crie `.env` com `MONGO_URI=mongodb+srv://...` e `JWT_SECRET=chave-secreta`.
+4. **Execute**: `npm start` (porta 5000).
+5. **Teste**: Use Postman com collection em `docs/ecommerce-api.postman_collection.json`.
 
-Este projeto foi desenvolvido colaborativamente via GitHub, com issues para cada CRUD e PRs para merges. Data de entrega: 21/11. Para dúvidas, entre em contato com os membros.
+## Comunicação com o Banco de Dados
+O sistema conecta ao MongoDB Atlas via Mongoose. A string de conexão é definida em `.env` (MONGO_URI). Queries usam populate para relacionamentos, e validações Mongoose garantem integridade. Conexão é estabelecida no `server.js` com tratamento de erros.
+
+## Integrantes e Contribuições
+- **Alison Naoki Ina Tsuboi-alisonnaoki**:
+  - Collections/CRUDs: Avaliações e Carrinho.
+  - Funcionalidades: Configuração inicial do projeto e autenticação JWT.
+  - Documentação: Parte da seção de endpoints no README.
+  - Issues: Configuração inicial, CRUD Avaliações, CRUD Carrinho, Revisão Final.
+
+- **Pedro Arthur Dias Moreira-PedroArthur710**:
+  - Collections/CRUDs: Categorias e Clientes.
+  - Funcionalidades: Modelagem do banco de dados e integração de rotas.
+  - Documentação: Diagrama de modelagem.
+  - Issues: Modelagem do banco, CRUD Categorias, CRUD Clientes.
+
+- **Mayk Kauã de Oliveira Rodrigues-MKzin-14**:
+  - Collections/CRUDs: Cupons e Fornecedores.
+  - Funcionalidades: Implementação das validações Yup.
+  - Documentação: Parte da seção de tecnologias no README.
+  - Issues: CRUD Cupons, CRUD Fornecedores, Validações.
+
+- **Yuri dos Santos-yuriribeiro-ctrl**:
+  - Collections/CRUDs: Logística e Pagamentos.
+  - Funcionalidades: Collection do Postman e testes automáticos.
+  - Documentação: Exemplos de requisição/resposta.
+  - Issues: CRUD Logística, CRUD Pagamentos, Collection Postman.
+
+- **Yuri Almeida de Araújo-NTCS0l1D**:
+  - Collections/CRUDs: Pedidos e Produtos.
+  - Funcionalidades: Tratamento de erros globais.
+  - Documentação: README completo e seção de instalação.
+  - Issues: CRUD Pedidos, CRUD Produtos, Documentação.
