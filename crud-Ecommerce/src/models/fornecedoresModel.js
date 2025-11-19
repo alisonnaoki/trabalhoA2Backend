@@ -8,6 +8,6 @@ produtosFornecidos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Produto' }],
 criadoEm: { type: Date, default: Date.now }
 });
 
-const FornecedorModel = mongoose.model('Fornecedores', schema)
+const FornecedorModel = mongoose.model('Fornecedores', fornecedoresSchema)
 
 module.exports = FornecedorModel

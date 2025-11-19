@@ -6,6 +6,5 @@ const categoriasSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-const CategoriaModel = mongoose.model('Categorias', schema)
-
-module.exports = CategoriaModel
+// Model no SINGULAR
+module.exports = mongoose.model('Categoria', categoriasSchema);

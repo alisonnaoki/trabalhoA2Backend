@@ -7,6 +7,6 @@ const cupomSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-const CupomModel = mongoose.model('Cupom',schema)
+const CupomModel = mongoose.model('Cupom', cupomSchema)
 
 module.exports = CupomModel

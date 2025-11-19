@@ -8,6 +8,6 @@ const avaliacoesSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-const AvaliacaoModel = mongoose.model('Avaliacoes', schema)
+const AvaliacaoModel = mongoose.model('Avaliacoes', avaliacoesSchema);
 
-module.exports = AvaliacaoModel
+module.exports = AvaliacaoModel;

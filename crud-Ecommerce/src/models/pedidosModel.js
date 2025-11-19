@@ -16,6 +16,6 @@ const pedidosSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-const PedidoModel = mongoose.model('Pedido', schema)
+const PedidoModel = mongoose.model('Pedido', pedidosSchema)
 
 module.exports = PedidoModel

@@ -12,6 +12,6 @@ const logisticaSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-const LogisticaModel = mongoose.model('Logistica', schema)
+const LogisticaModel = mongoose.model('Logistica', logisticaSchema)
 
 module.exports = LogisticaModel

@@ -11,7 +11,7 @@ const clientesSchema = new mongoose.Schema({
     criadoEm: { type: Date, default: Date.now }
 });
 
-const ClienteModel = mongoose.model('Cliente', schema)
+const ClienteModel = mongoose.model('Cliente', clientesSchema)
 
 module.exports = ClienteModel
 

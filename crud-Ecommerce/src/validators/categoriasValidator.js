@@ -9,10 +9,9 @@ async function validarCategoria(req, res, next) {
     try {
         await schema.validate(req.body, { abortEarly: false });
         next();
-} 
-    catch (error) {
+    } catch (error) {
         return res.status(400).json({ erros: error.errors });
-}
+    }
 }
 
 module.exports = { validarCategoria };
