@@ -116,11 +116,10 @@ Relacionamentos usam refs Mongoose para queries eficientes com populate.
 1. **Clone o repositório**: `git clone https://github.com/seu-usuario/ecommerce-backend.git`.
 2. **Instale dependências**: `npm install`.
 3. **Configure ambiente**: Crie `.env` com `MONGO_URI=mongodb+srv://...` e `JWT_SECRET=chave-secreta`.
-4. **Execute**: `npm start` (porta 5000).
-5. **Teste**: Use Postman com collection em `docs/ecommerce-api.postman_collection.json`.
+4. **Execute**: `npm start` (porta 3000).
 
 ## Comunicação com o Banco de Dados
-O sistema conecta ao MongoDB Atlas via Mongoose. A string de conexão é definida em `.env` (MONGO_URI). Queries usam populate para relacionamentos, e validações Mongoose garantem integridade. Conexão é estabelecida no `server.js` com tratamento de erros.
+O sistema conecta ao MongoDB Atlas via Mongoose. A string de conexão é definida em `.env` (MONGO_URI). Queries usam populate para relacionamentos, e validações Mongoose garantem integridade. Conexão é estabelecida no `index.js` com tratamento de erros.
 
 ## Integrantes e Contribuições
 - **Alison Naoki Ina Tsuboi-alisonnaoki**:
